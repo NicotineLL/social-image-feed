@@ -2,6 +2,8 @@
 
 Social Image Feed - A JQuery Plugin
 
+![](http://i.imgur.com/Hkaq30a.jpg)
+
 ## Description
 
 Get an image feed from various social networks and art galleries:
