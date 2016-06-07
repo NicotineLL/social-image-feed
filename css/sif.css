@@ -1,0 +1,7 @@
+#image-feed { padding: 15px; background-color: #333; }
+#image-feed .fa { font-size: 24px; display: inline-block; background-color: #444; color: #777; padding: 10px; text-align: center; border-radius: 5px; width: 100%; }
+#image-feed ul { list-style: none; margin: 10px; padding: 0; margin: 5px -5px;  }
+#image-feed ul:after { content: ""; display: table; clear: both; }
+#image-feed ul > li { width: 10%; float: left; padding: 5px; }
+#image-feed ul > li > a { display: block; }
+#image-feed ul > li > a > .feed-image { width: 100%; padding-bottom: 100%; background-size: cover; border-radius: 5px; }
