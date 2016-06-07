@@ -17,7 +17,7 @@ note: Considering the extremely user unfriendly way oAuth works Facebook, Twitte
 
 ## Installation
 
-note: The script is using protocol-relative URLs to match secured and non-secured connections, so it requires web server to run
+The script is using protocol-relative URLs to match secured and non-secured connections, so it requires web server to run
 
 1. Download the master repository https://github.com/NicotineLL/sif/archive/master.zip
 2. Unzip on your web server or localhost
