@@ -4,6 +4,10 @@ Social Image Feed - A JQuery Plugin
 
 ![](http://i.imgur.com/Hkaq30a.jpg)
 
+## Demo
+
+http://demirevdesign.com/public/sif/feed.html
+
 ## Description
 
 Get an image feed from various social networks and art galleries:
