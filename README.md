@@ -1,3 +1,10 @@
+# Depricated
+
+This plugin will stop working in December along with Google Feed API
+
+>This API is officially deprecated and will stop working after December 15th, 2016. See our deprecation policy in our Terms of Service for details ( https://developers.google.com/feed/ ).
+
+
 ## SIF
 
 Social Image Feed - A JQuery Plugin
