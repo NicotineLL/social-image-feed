@@ -32,8 +32,10 @@ The script is using protocol-relative URLs to match secured and non-secured conn
 ## Changelog
 v1.6
 - SIF is now using Yahoo YQL instead of the deprecated Google Feed API
+
 v1.5
 - Optimized for general use
+
 v1.0 to v1.4
 - Private releases
 
