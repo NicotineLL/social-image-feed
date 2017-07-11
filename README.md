@@ -1,10 +1,3 @@
-# Depricated
-
-This plugin will stop working in December along with Google Feed API
-
->This API is officially deprecated and will stop working after December 15th, 2016. See our deprecation policy in our Terms of Service for details ( https://developers.google.com/feed/ ).
-
-
 ## SIF
 
 Social Image Feed - A JQuery Plugin
@@ -35,6 +28,14 @@ The script is using protocol-relative URLs to match secured and non-secured conn
 1. Download the master repository https://github.com/NicotineLL/sif/archive/master.zip
 2. Unzip on your web server or localhost
 3. Open feed.html
+
+## Changelog
+v1.6
+- SIF is now using Yahoo YQL instead of the deprecated Google Feed API
+v1.5
+- Optimized for general use
+v1.0 to v1.4
+- Private releases
 
 ## License
 [MIT](http://mit-license.org/)
