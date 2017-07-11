@@ -7,7 +7,7 @@ Author: DemirevDesign
 =====================================
 License: http://mit-license.org/
 =====================================
-Credit: http://goo.gl/RIQcHY
+Version: 1.6
 ===================================*/
 
 (function($){
@@ -67,9 +67,7 @@ Credit: http://goo.gl/RIQcHY
 					dataType: 'jsonp',
 					error: 'There is an AJAX error, revisit code.',
 					success: function(a){
-						//console.log(a);
 						a = a.data;
-						//console.log(a);
 						$.each(a, function(i,item){
 							if(i < o.numResults){
 								// Set permalink
@@ -78,7 +76,7 @@ Credit: http://goo.gl/RIQcHY
 								//var content = $($.parseHTML(item.content));
 								// Set thumbnails
 								var thumb = item.images.low_resolution.url;
-								console.log(thumb);
+								//console.log(thumb);
 								// Build HTML
 								var link = 'href="'+perma+'"';
 								var html = '<li class="feed-image-wrapper"><a '+link+' target="'+newWindow+'"><div class="feed-image" style="background-image: url('+thumb+')"></div></a></li>';
@@ -94,7 +92,8 @@ Credit: http://goo.gl/RIQcHY
 	// Tumblr Feed
 			if(!o.tumblrID == ''){
 				var href = 'http://'+o.tumblrID+'/rss',
-					url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
+					url = '//query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22'+ encodeURIComponent(href) +'%22%20limit%20'+ o.numResults +'&format=json&callback=?'
+					//url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
 					
 				// Add ul tag to target element
 				$('#'+o.tumblrHook).append('<ul id="'+o.tumblrHook+'-stream"></ul>');
@@ -106,14 +105,14 @@ Credit: http://goo.gl/RIQcHY
 					dataType: 'jsonp',
 					error: 'There is an AJAX error, revisit code.',
 					success: function(a){
-						a = a.responseData.feed.entries;
+						a = a.query.results.item;
 						//console.log(JSON.stringify(a));
 						$.each(a, function(i,item){
 							if(i < o.numResults){
 								// Set permalink
 								var perma = item.link;
-								// Parse the `content`
-								var content = $($.parseHTML(item.content));
+								// Parse post content
+								var content = $($.parseHTML(item.description));
 								// Set thumbnails
 								var thumb = $(content).attr('src');
 								// Check first tag
@@ -146,7 +145,8 @@ Credit: http://goo.gl/RIQcHY
 	// WeHeartIt Feed
 			if(!o.weheartitID == ''){
 				var href = 'http://weheartit.com/'+o.weheartitID+'.rss',
-					url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
+					url = '//query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22'+ encodeURIComponent(href) +'%22%20limit%20'+ o.numResults +'&format=json&callback=?'
+					//url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
 					
 				// Add ul tag to target element
 				$('#'+o.weheartitHook).append('<ul id="'+o.weheartitHook+'-stream"></ul>');
@@ -158,13 +158,13 @@ Credit: http://goo.gl/RIQcHY
 					dataType: 'jsonp',
 					error: 'There is an AJAX error, revisit code.',
 					success: function(a){
-						a = a.responseData.feed.entries;
+						a = a.query.results.item;
 						$.each(a, function(i,item){
 							if(i < o.numResults){
 								// Set permalink
 								var perma = item.link;
 								// Parse the `content`
-								var content = $($.parseHTML(item.content));
+								var content = $($.parseHTML(item.description));
 								// Set thumbnails
 								var thumb = $(content).attr('src');
 								// Because WeHeartIt RSS 2.0 gives only large uncompressed thumb we need to change URL
@@ -190,7 +190,8 @@ Credit: http://goo.gl/RIQcHY
 	// Pinterest Feed
 			if(!o.pinterestID == ''){
 				var href = 'http://www.pinterest.com/'+o.pinterestID+'/feed.rss',
-					url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&format=xml&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
+					url = '//query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22'+ encodeURIComponent(href) +'%22%20limit%20'+ o.numResults +'&format=json&callback=?'
+					//url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&format=xml&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
 					
 				// Add ul tag to target element
 				$('#'+o.pinterestHook).append('<ul id="'+o.pinterestHook+'-stream"></ul>');
@@ -203,13 +204,13 @@ Credit: http://goo.gl/RIQcHY
 					error: 'There is an AJAX error, revisit code.',
 					success: function(a){
 						//console.log(JSON.stringify(a));
-						a = a.responseData.feed.entries;
+						a = a.query.results.item;
 						$.each(a, function(i,item){
 							if(i < o.numResults){
 								// Set permalin
 								var perma = item.link;
 								// Parse the `content`
-								var content = $($.parseHTML(item.content));
+								var content = $($.parseHTML(item.description));
 								// Set thumbnails
 								var thumb = $('img',content).attr('src');
 								// Build HTML
@@ -262,8 +263,9 @@ Credit: http://goo.gl/RIQcHY
 			}
 	// DeviantArt Feed
 			if(!o.deviantartID == ''){
-				var href = 'http://backend.deviantart.com/rss.xml?q=gallery%3A'+o.deviantartID+'',
-					url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
+				var href = 'http://backend.deviantart.com/rss.xml?q=gallery%3A'+o.deviantartID,
+					url = '//query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22'+ encodeURIComponent(href) +'%22%20limit%20'+ o.numResults +'&format=json&callback=?'
+					//url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
 					
 				// Add ul tag to target element
 				$('#'+o.deviantartHook).append('<ul id="'+o.deviantartHook+'-stream"></ul>');
@@ -275,18 +277,18 @@ Credit: http://goo.gl/RIQcHY
 					dataType: 'jsonp',
 					error: 'There is an AJAX error, revisit code.',
 					success: function(a){
-						a = a.responseData.feed.entries;
+						a = a.query.results.item;
 						//console.log(JSON.stringify(a));
 						$.each(a, function(i,item){
 							if(i < o.numResults){
 								// Set permalink
 								var perma = item.link;
 								// Parse the `content`
-								var content = $($.parseHTML(item.content));
-								var hasMedia = item.mediaGroups[0].contents[0].thumbnails;
+								var content = $($.parseHTML(item.description));
+								var hasMedia = item.thumbnail;
 								// Set thumbnails
 								if(hasMedia){
-									var thumb = item.mediaGroups[0].contents[0].url;
+									var thumb = "'" + item.thumbnail[1].url + "'";
 								} else {
 									var thumb = o.noThumb;
 								}
@@ -339,7 +341,8 @@ Credit: http://goo.gl/RIQcHY
 	// Behance Feed
 			if(!o.behanceID == ''){
 				var href = 'https://www.behance.net/'+o.behanceID+'.xml',
-					url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
+					url = '//query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22'+ encodeURIComponent(href) +'%22%20limit%20'+ o.numResults +'&format=json&callback=?'
+					//url = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+o.numResults+'&callback=?&q='+encodeURIComponent(href);
 					
 				// Add ul tag to target element
 				$('#'+o.behanceHook).append('<ul id="'+o.behanceHook+'-stream"></ul>');
@@ -351,13 +354,14 @@ Credit: http://goo.gl/RIQcHY
 					dataType: 'jsonp',
 					error: 'There is an AJAX error, revisit code.',
 					success: function(a){
-						a = a.responseData.feed.entries;
+						a = a.query.results.item;
+						console.log(a)
 						$.each(a, function(i,item){
 							if(i < o.numResults){
 								// Set permalink
 								var perma = item.link;
 								// Parse the `content`
-								var content = $($.parseHTML(item.content));
+								var content = $($.parseHTML(item.description));
 								// Set thumbnails
 								var thumb = $(content).attr('src');
 								// Build HTML
